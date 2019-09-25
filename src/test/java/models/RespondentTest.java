@@ -22,6 +22,18 @@ public class RespondentTest {
         assertTrue( respondent instanceof Respondent);
     }
 
+    @Test
+    public void getName() {
+        Respondent respondent = setUpRespondent();
+        assertEquals("Daisy",respondent.getName());
+    }
+
+    @Test
+    public void getType() {
+        Respondent respondent = setUpRespondent();
+        assertEquals("respondent",respondent.getType());
+    }
+
     //helper
     public Respondent setUpRespondent(){
         return new Respondent("Daisy");
