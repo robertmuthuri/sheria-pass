@@ -24,13 +24,14 @@ public class CaseLaw {
     public String getCase_holding() { return case_holding; }
     public String getCase_summary() { return case_summary; }
     public String getCase_url() { return case_url; }
+
     //setter methods
     public void setId(int id) {this.id = id; }
     public void setCase_citation(String case_citation) {this.case_citation = case_citation; }
     public void setCase_court(String case_court) {this.case_court = case_court; }
     public void setCase_holding(String case_holding) {this.case_holding = case_holding; }
     public void setCase_summary(String case_summary) {this.case_summary = case_summary; }
-    public void setCase_url(String case_url) {this.case_url = case_url }
+    public void setCase_url(String case_url) {this.case_url = case_url; }
     //override equals and hashcode method
 
     @Override
