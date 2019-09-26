@@ -11,7 +11,7 @@ public interface RespondentDao {
 
     //read
     List<Respondent> getAllRespondent();
-    Respondent findById();
+    Respondent findById(int id);
     List<CaseLaw> getCaseByRespondentId();
 
     //delete

@@ -1,57 +1,57 @@
 package dao;
 
 import models.CaseLaw;
-import models.Respondent;
+import models.Petitioner;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oRespondentDao implements RespondentDao {
+public class Sql2oPetitionerDao implements PetitionerDao {
 
     private final Sql2o sql2o;
-    public Sql2oRespondentDao(Sql2o sql2o){
+    public Sql2oPetitionerDao(Sql2o sql2o){
         this.sql2o = sql2o;
     }
     @Override
-    public void add(Respondent respondent) {
+    public void add(Petitioner petitioner) {
         String sql = "INSERT INTO parties (name,type)    VALUES (:name, :type)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
-                    .bind(respondent)
+                    .bind(petitioner)
                     .executeUpdate()
                     .getKey();
-            respondent.setId(id);
+            petitioner.setId(id);
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }
 
     @Override
-    public void addRespondentToCase(Respondent respondent, CaseLaw caseLaw) {
+    public void addPetitionerToCase(Petitioner petitioner, CaseLaw caseLaw) {
 
     }
 
     @Override
-    public List<Respondent> getAllRespondent() {
-            try(Connection con = sql2o.open()){
-                return con.createQuery("SELECT * FROM parties WHERE type='respondent'")
-                        .executeAndFetch(Respondent.class);
-            }
-    }
-
-    @Override
-    public Respondent findById( int id) {
-        try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM parties WHERE id=:id")
-                    .addParameter("id", id)
-                    .executeAndFetchFirst(Respondent.class);
+    public List<Petitioner> getAllPetioners() {
+        try(Connection con = sql2o.open()){
+            return con.createQuery("SELECT * FROM parties WHERE type='petitioner'")
+                    .executeAndFetch(Petitioner.class);
         }
     }
 
     @Override
-    public List<CaseLaw> getCaseByRespondentId() {
+    public Petitioner findById(int id) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM parties WHERE id=:id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Petitioner.class);
+        }
+    }
+
+    @Override
+    public List<CaseLaw> getCaseByPetitionerId() {
         return null;
     }
 
@@ -75,5 +75,6 @@ public class Sql2oRespondentDao implements RespondentDao {
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
+
     }
 }
