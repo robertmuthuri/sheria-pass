@@ -16,8 +16,8 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void add(Judge judge) {
-        String sql = "INSERT INTO judges (name) VALUES (:name)";
-        try(Connection con = sql2o.open()){
+        String sql = "INSERT INTO judges (judge_name,judge_rank) VALUES (:judge_name,:judge_rank)";
+        try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(judge)
                     .executeUpdate()
@@ -26,35 +26,39 @@ public class Sql2oJudgeDao implements JudgeDao{
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
-
     }
 
-    @Override
-    public void addJudgeToCase(Judge judge, CaseLaw caseLaw) {
-
-    }
 
     @Override
     public List<Judge> getAllJudges() {
-        return null;
-    }
-
-    @Override
-    public Judge findById() {
-        try(Connection con = sql2o.open()){
-            return (Judge) con.createQuery("SELECT * FROM parties WHERE type=judge")
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM judge")
                     .executeAndFetch(Judge.class);
         }
     }
 
     @Override
-    public List<CaseLaw> getCaseByJudgeId() {
-        return null;
+    public Judge findById(int id) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM departments WHERE id=:id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Judge.class);
+        }
+    }
+
+
+    @Override
+    public List<Judge> getCaseByJudgeId(int id) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM employees WHERE id=:id")
+                    .executeAndFetch(Judge.class);
+        }
     }
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE FROM judges WHERE id = :id";
+
+        String sql = "DELETE from judges WHERE id = :id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -67,7 +71,8 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void clearAll() {
-        String sql = "DELETE FROM judges";
+
+        String sql = "DELETE from judges";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql).executeUpdate();
         } catch (Sql2oException ex) {

@@ -45,6 +45,7 @@ gradle
 gradlew.bat
 gradlew
 settings.gradle
+pull.sh
 
 # IntelliJ #
 ############

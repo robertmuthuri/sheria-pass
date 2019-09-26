@@ -7,11 +7,11 @@ import java.util.Objects;
 
 public class Judge {
     private int id;
-    private String name;
+    private String judge_name;
 
 
     public Judge(String name) {
-        this.name = name;
+        this.judge_name = judge_name;
 
     }
 
@@ -39,11 +39,11 @@ public class Judge {
     }
 
     public String getName() {
-        return name;
+        return judge_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.judge_name = judge_name;
     }
 
 
