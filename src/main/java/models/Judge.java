@@ -8,10 +8,12 @@ import java.util.Objects;
 public class Judge {
     private int id;
     private String judge_name;
+    private String judge_rank;
 
 
-    public Judge(String name) {
+    public Judge(String judge_name, String judge_rank) {
         this.judge_name = judge_name;
+        this.judge_rank = judge_rank;
 
     }
 
@@ -21,13 +23,29 @@ public class Judge {
         if (o == null || getClass() != o.getClass()) return false;
         Judge judge = (Judge) o;
         return getId() == judge.getId() &&
-                Objects.equals(getName(), judge.getName());
-
+                Objects.equals(getJudge_name(), judge.getJudge_name()) &&
+                Objects.equals(getJudge_rank(), judge.getJudge_rank());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName());
+        return Objects.hash(getId(), getJudge_name(), getJudge_rank());
+    }
+
+    public String getJudge_name() {
+        return judge_name;
+    }
+
+    public void setJudge_name(String judge_name) {
+        this.judge_name = judge_name;
+    }
+
+    public String getJudge_rank() {
+        return judge_rank;
+    }
+
+    public void setJudge_rank(String judge_rank) {
+        this.judge_rank = judge_rank;
     }
 
     public int getId() {
@@ -38,13 +56,7 @@ public class Judge {
         this.id = id;
     }
 
-    public String getName() {
-        return judge_name;
-    }
 
-    public void setName(String name) {
-        this.judge_name = judge_name;
-    }
 
 
 

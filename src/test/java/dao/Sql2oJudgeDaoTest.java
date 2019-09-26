@@ -56,7 +56,7 @@ public class Sql2oJudgeDaoTest {
     }
 
     public Judge setUpNewJudge(){
-        Judge judge = new Judge("");
+        Judge judge = new Judge("dscc","dscgfbvc");
         return judge;
     }
 }
