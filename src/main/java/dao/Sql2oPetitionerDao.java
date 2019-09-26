@@ -31,7 +31,17 @@ public class Sql2oPetitionerDao implements PetitionerDao {
     @Override
     public void addPetitionerToCase(Petitioner petitioner, CaseLaw caseLaw) {
 
+        String sql ="INSERT INTO caselaws_parties (case_id,party_id) VALUES (:case_id,:party_id)";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("case_id", caseLaw.getId())
+                    .addParameter("party_id", petitioner.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
+
 
     @Override
     public List<Petitioner> getAllPetioners() {

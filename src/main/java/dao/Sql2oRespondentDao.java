@@ -31,6 +31,15 @@ public class Sql2oRespondentDao implements RespondentDao {
     @Override
     public void addRespondentToCase(Respondent respondent, CaseLaw caseLaw) {
 
+        String sql ="INSERT INTO caselaws_parties (case_id,party_id) VALUES (:case_id,:party_id)";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("case_id", caseLaw.getId())
+                    .addParameter("party_id", respondent.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
 
     @Override

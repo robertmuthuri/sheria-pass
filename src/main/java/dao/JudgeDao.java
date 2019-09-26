@@ -12,7 +12,7 @@ public interface JudgeDao {
     //read
     List<Judge> getAllJudges();
     Judge findById();
-    List<CaseLaw> getCaseByJudgeId();
+    List<CaseLaw> getCaseByForJudge( int judge_id);
 
     //delete
     void deleteById(int id);

@@ -6,6 +6,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oJudgeDao implements JudgeDao{
@@ -31,12 +32,23 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void addJudgeToCase(Judge judge, CaseLaw caseLaw) {
-
+        String sql ="INSERT INTO caselaws_judges (case_id,judge_id) VALUES (:case_id,:judge_id)";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("case_id", caseLaw.getId())
+                    .addParameter("party_id", judge.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
 
     @Override
     public List<Judge> getAllJudges() {
-        return null;
+        try(Connection con = sql2o.open()){
+            return con.createQuery("SELECT * FROM judges")
+                    .executeAndFetch(Judge.class);
+        }
     }
 
     @Override
@@ -48,9 +60,27 @@ public class Sql2oJudgeDao implements JudgeDao{
     }
 
     @Override
-    public List<CaseLaw> getCaseByJudgeId() {
-        return null;
+    public List<CaseLaw> getCaseByForJudge(int judge_id) {
+        List<CaseLaw> caseLaws = new ArrayList();
+        String joinQuery = "SELECT case_id FROM caselaws_judges WHERE judge_id = :judge_id";
+
+        try (Connection con = sql2o.open()) {
+            List<Integer> allCaseLawIds = con.createQuery(joinQuery)
+                    .addParameter("judge_id", judge_id)
+                    .executeAndFetch(Integer.class);
+            for (Integer case_id : allCaseLawIds){
+                String caseLawQuery = "SELECT * FROM caselaws WHERE id = :case_id";
+                caseLaws.add(
+                        con.createQuery(caseLawQuery)
+                                .addParameter("case_id", case_id)
+                                .executeAndFetchFirst(CaseLaw.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+        return caseLaws;
     }
+
 
     @Override
     public void deleteById(int id) {
