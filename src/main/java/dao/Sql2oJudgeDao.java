@@ -85,9 +85,13 @@ public class Sql2oJudgeDao implements JudgeDao{
     @Override
     public void deleteById(int id) {
         String sql = "DELETE FROM judges WHERE id = :id";
+        String deleteJoin = "DELETE from caselaws_judges WHERE judge_id = :judge_id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
+                    .executeUpdate();
+            con.createQuery(deleteJoin)
+                    .addParameter("judge_id", id)
                     .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);
