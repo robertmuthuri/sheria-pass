@@ -17,8 +17,8 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void add(Judge judge) {
-        String sql = "INSERT INTO judges (judge_name,judge_rank) VALUES (:judge_name,:judge_rank)";
-        try (Connection con = sql2o.open()) {
+        String sql = "INSERT INTO judges (name) VALUES (:name)";
+        try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(judge)
                     .executeUpdate()
@@ -27,15 +27,9 @@ public class Sql2oJudgeDao implements JudgeDao{
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
+
     }
 
-<<<<<<< HEAD
-
-    @Override
-    public List<Judge> getAllJudges() {
-        try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM judge")
-=======
     @Override
     public void addJudgeToCase(Judge judge, CaseLaw caseLaw) {
         String sql ="INSERT INTO caselaws_judges (case_id,judge_id) VALUES (:case_id,:judge_id)";
@@ -53,36 +47,19 @@ public class Sql2oJudgeDao implements JudgeDao{
     public List<Judge> getAllJudges() {
         try(Connection con = sql2o.open()){
             return con.createQuery("SELECT * FROM judges")
->>>>>>> c5c3cb380e134d54c62e2af749e7fa6e7dbea768
                     .executeAndFetch(Judge.class);
         }
     }
 
     @Override
     public Judge findById(int id) {
-<<<<<<< HEAD
-        try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM departments WHERE id=:id")
-                    .addParameter("id", id)
-                    .executeAndFetchFirst(Judge.class);
-=======
         try(Connection con = sql2o.open()){
             return (Judge) con.createQuery("SELECT * FROM parties WHERE type=judge")
-                    .addParameter("id", id)
                     .executeAndFetch(Judge.class);
->>>>>>> c5c3cb380e134d54c62e2af749e7fa6e7dbea768
         }
     }
 
-
     @Override
-<<<<<<< HEAD
-    public List<Judge> getCaseByJudgeId(int id) {
-        try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM employees WHERE id=:id")
-                    .executeAndFetch(Judge.class);
-        }
-=======
     public List<CaseLaw> getCaseByForJudge(int judge_id) {
         List<CaseLaw> caseLaws = new ArrayList();
         String joinQuery = "SELECT case_id FROM caselaws_judges WHERE judge_id = :judge_id";
@@ -102,19 +79,13 @@ public class Sql2oJudgeDao implements JudgeDao{
             System.out.println(ex);
         }
         return caseLaws;
->>>>>>> c5c3cb380e134d54c62e2af749e7fa6e7dbea768
     }
 
 
     @Override
     public void deleteById(int id) {
-<<<<<<< HEAD
-
-        String sql = "DELETE from judges WHERE id = :id";
-=======
         String sql = "DELETE FROM judges WHERE id = :id";
         String deleteJoin = "DELETE from caselaws_judges WHERE judge_id = :judge_id";
->>>>>>> c5c3cb380e134d54c62e2af749e7fa6e7dbea768
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -130,8 +101,7 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void clearAll() {
-
-        String sql = "DELETE from judges";
+        String sql = "DELETE FROM judges";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql).executeUpdate();
         } catch (Sql2oException ex) {
