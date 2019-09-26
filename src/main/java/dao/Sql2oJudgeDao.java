@@ -60,7 +60,7 @@ public class Sql2oJudgeDao implements JudgeDao{
     }
 
     @Override
-    public List<CaseLaw> getCaseByForJudge(int judge_id) {
+    public List<CaseLaw> getCaseForJudge(int judge_id) {
         List<CaseLaw> caseLaws = new ArrayList();
         String joinQuery = "SELECT case_id FROM caselaws_judges WHERE judge_id = :judge_id";
 
