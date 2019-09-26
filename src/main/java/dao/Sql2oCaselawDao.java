@@ -11,7 +11,7 @@ import javax.print.DocFlavor;
 public class Sql2oCaselawDao implements CaselawDao {
 
     private final Sql2o sql2o;
-    public CaselawDao(Sql2o sql2o) { this.sql2o = sql2o; }
+    public Sql2oCaselawDao(Sql2o sql2o) { this.sql2o = sql2o; }
 
     @Override
     public void add(CaseLaw caselaw) {
@@ -65,7 +65,8 @@ public class Sql2oCaselawDao implements CaselawDao {
         }
     }
     // delete by id - also deletes in join tables
-    void deleteById(int id) {
+    @Override
+    public void deleteById(int id) {
         String sql = "DELETE FROM caselaws WHERE id = :id";
         String joinSql = "DELETE FROM caselaws_parties";
         String joinOtherSql = "DELETE FROM caselaws_judges";
