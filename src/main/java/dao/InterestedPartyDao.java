@@ -13,7 +13,7 @@ public interface InterestedPartyDao {
     //read
     List<InterestedParty> getAllInterestedParties();
     InterestedParty findById(int id);
-    List<CaseLaw> getCaseByPetitionerId();
+    List<CaseLaw> getCaseLawsForInterestedParty(int party_id);
 
     //delete
     void deleteById(int id);

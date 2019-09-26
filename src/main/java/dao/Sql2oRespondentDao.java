@@ -6,6 +6,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oRespondentDao implements RespondentDao {
@@ -60,21 +61,43 @@ public class Sql2oRespondentDao implements RespondentDao {
     }
 
     @Override
-    public List<CaseLaw> getCaseByRespondentId() {
-        return null;
+    public List<CaseLaw> getAllCasesForResponded(int party_id) {
+        List<CaseLaw> caseLaws = new ArrayList();
+        String joinQuery = "SELECT case_id FROM caselaws_parties WHERE party_id = :party_id";
+
+        try (Connection con = sql2o.open()) {
+            List<Integer> allCaseLawIds = con.createQuery(joinQuery)
+                    .addParameter("party_id",party_id)
+                    .executeAndFetch(Integer.class);
+            for (Integer case_id : allCaseLawIds){
+                String caseLawQuery = "SELECT * FROM caselaws WHERE id = :case_id";
+                caseLaws.add(
+                        con.createQuery(caseLawQuery)
+                                .addParameter("case_id", case_id)
+                                .executeAndFetchFirst(CaseLaw.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+        return caseLaws;
     }
+
 
     @Override
     public void deleteById(int id) {
         String sql = "DELETE from parties WHERE id = :id";
+        String deleteJoin = "DELETE from caselaws_parties WHERE party_id = :party_id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
+            con.createQuery(sql)
+                    .addParameter("party_id", id)
+                    .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);
         }
-    }
+        }
 
     @Override
     public void clearAll() {

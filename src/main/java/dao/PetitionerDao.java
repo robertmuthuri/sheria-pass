@@ -12,7 +12,7 @@ public interface PetitionerDao {
     //read
     List<Petitioner> getAllPetioners();
     Petitioner findById(int id);
-    List<CaseLaw> getCaseByPetitionerId();
+    List<CaseLaw> getCaseLawsForPetitioner(int party_id);
 
     //delete
     void deleteById(int id);
