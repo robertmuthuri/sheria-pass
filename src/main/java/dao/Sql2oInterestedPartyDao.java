@@ -35,7 +35,7 @@ public class Sql2oInterestedPartyDao implements InterestedPartyDao{
     }
 
     @Override
-    public void addInterestedParty(InterestedParty interestedParty, CaseLaw caseLaw) {
+    public void addInterestedPartyToCaselaw(InterestedParty interestedParty, CaseLaw caseLaw) {
         String sql ="INSERT INTO caselaws_parties (case_id,party_id) VALUES (:case_id,:party_id)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
