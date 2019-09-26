@@ -24,6 +24,6 @@ public class JudgeTest {
 
     //helper method
     public Judge setUpJudge (){
-        return new Judge("Robert");
+        return new Judge("Robert","v bncvb");
     }
 }
