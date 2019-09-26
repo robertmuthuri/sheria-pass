@@ -60,7 +60,6 @@ public class CaseLawTest {
         testCaseLaw.setCase_summary("I'm not sure I'm up to the task");
         assertNotEquals("Validity of a presidential election-petition challenging the validity of the president elect-allegations of non-compliance with the Constitution and electoral laws - allegations of various  irregularities and illegalities during the conduct of the elections", testCaseLaw.getCase_summary());
     }
-
     @Test
     public void setCase_url() {
         CaseLaw testCaseLaw = setupCaselaw();
