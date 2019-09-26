@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface InterestedPartyDao {
     void add(InterestedParty interestedParty);
-    void addInterestedParty(InterestedParty interestedParty, CaseLaw caseLaw);
+    void addInterestedPartyToCaselaw(InterestedParty interestedParty, CaseLaw caseLaw);
 
     //read
     List<InterestedParty> getAllInterestedParties();
