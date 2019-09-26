@@ -12,7 +12,7 @@ public interface RespondentDao {
     //read
     List<Respondent> getAllRespondent();
     Respondent findById(int id);
-    List<CaseLaw> getCaseByRespondentId();
+    List<CaseLaw> getAllCasesForResponded(int party_id);
 
     //delete
     void deleteById(int id);
