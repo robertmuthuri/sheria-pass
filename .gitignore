@@ -50,3 +50,4 @@ settings.gradle
 ############
 .idea
 .idea/
+stale_outputs_checked

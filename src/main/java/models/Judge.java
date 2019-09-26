@@ -1,5 +1,8 @@
 package models;
 
+import org.sql2o.*;
+
+import java.util.List;
 import java.util.Objects;
 
 public class Judge {
@@ -42,6 +45,7 @@ public class Judge {
     public void setName(String name) {
         this.name = name;
     }
+
 
 
 }
