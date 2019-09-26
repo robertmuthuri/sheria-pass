@@ -2,7 +2,7 @@ package models;
 
 import java.util.Objects;
 
-public  abstract class  Party {
+public  abstract class Party {
     public String name;
     public String type;
     public int id;
