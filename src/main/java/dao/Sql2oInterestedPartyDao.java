@@ -2,6 +2,8 @@ package dao;
 
 import models.CaseLaw;
 import models.InterestedParty;
+import models.Party;
+import models.Petitioner;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -32,9 +34,20 @@ public class Sql2oInterestedPartyDao implements InterestedPartyDao{
     }
 
     @Override
-    public void addPetitionerToCase(InterestedParty interestedParty, CaseLaw caseLaw) {
-
+    public void addInterestedParty(InterestedParty interestedParty, CaseLaw caseLaw) {
+        String sql ="INSERT INTO caselaws_parties (case_id,party_id) VALUES (:case_id,:party_id)";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("case_id", caseLaw.getId())
+                    .addParameter("party_id", interestedParty.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
+
+
+
 
     @Override
     public List<InterestedParty> getAllInterestedParties() {
