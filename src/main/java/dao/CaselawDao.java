@@ -12,7 +12,7 @@ public interface CaselawDao {
     void addCaseLawToJudge(CaseLaw caseLaw, Judge judge);
 
 
-    User findById(int id);
+    CaseLaw findById(int id);
 
     List<CaseLaw> getAll();
 
