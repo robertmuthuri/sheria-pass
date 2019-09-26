@@ -52,9 +52,10 @@ public class Sql2oJudgeDao implements JudgeDao{
     }
 
     @Override
-    public Judge findById() {
+    public Judge findById(int id) {
         try(Connection con = sql2o.open()){
             return (Judge) con.createQuery("SELECT * FROM parties WHERE type=judge")
+                    .addParameter("id", id)
                     .executeAndFetch(Judge.class);
         }
     }
