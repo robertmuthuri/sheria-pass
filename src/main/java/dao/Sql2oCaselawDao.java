@@ -68,12 +68,12 @@ public class Sql2oCaselawDao implements CaselawDao {
     @Override
     public void deleteById(int id) {
         String sql = "DELETE FROM caselaws WHERE id = :id";
-        String joinSql = "DELETE FROM caselaws_parties";
-        String joinOtherSql = "DELETE FROM caselaws_judges";
+        String joinSql = "DELETE FROM caselaws_parties WHERE case_id = :case_id";
+        String joinOtherSql = "DELETE FROM caselaws_judges WHERE case_id = :case_id";
         try ( Connection con = sql2o.open()) {
             con.createQuery(sql).addParameter("id",id).executeUpdate();
-            con.createQuery(joinSql).addParameter("id",id).executeUpdate();
-            con.createQuery(joinOtherSql).addParameter("id",id).executeUpdate();
+            con.createQuery(joinSql).addParameter("case_id", id).executeUpdate();
+            con.createQuery(joinOtherSql).addParameter("case_id",id).executeUpdate();
         } catch (Sql2oException ex) { System.out.println(ex); }
 
 }
