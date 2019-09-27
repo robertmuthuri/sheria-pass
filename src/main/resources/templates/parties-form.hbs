@@ -1,0 +1,21 @@
+{{#partial "content"}}
+    <div>
+        <h2>Add a case party</h2>
+        <form action="/judge/new" class="form form-dark" method="POST">
+            <div class="md-form">
+                <label for="name"> Name</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="md-form">
+                <label for="type">Type</label>
+                <select class="form-control" name="name" id="name" required>
+                        <option value="respondent">Respondent</option>
+                        <option value="respondent">Interested Party</option>
+                        <option value="respondent">Petitioner</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{{/partial}}
+{{>layout.hbs}}

@@ -1,7 +1,7 @@
 {{#partial "content"}}
     <div>
             <h2>Input search options</h2>
-            <form action="/caselaw" class="form form-dark" method="POSTa">
+            <form action="/caselaw" class="form form-dark" method="POST">
                 <div class="md-form">
                     <label id="case_number" for="case_number">Case Number</label>
                     <input type="text" id="case_number" name="case_number" class="form-control">
@@ -17,4 +17,5 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
     </div>
-        {{/partial}}
+{{/partial}}
+{{>layout.hbs}}

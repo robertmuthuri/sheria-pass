@@ -1,0 +1,25 @@
+{{#partial "content"}}
+    <div>
+        <h2>Add a case law</h2>
+        <form action="/case/new" class="form form-dark" method="POST">
+            <div class="md-form">
+                <label for="case_citation"> Case citation</label>
+                <input type="text" id="case_citation" name="case_citation" class="form-control">
+            </div>
+            <div class="md-form">
+                <label for="case_summary">Case summary</label>
+                <input type="text" id="case_summary" name="case_summary" class="form-control">
+            </div>
+            <div class="md-form">
+                <label for="case_court">Court</label>
+                <input type="text" id="case_court" name="case_court" class="form-control">
+            </div>
+            <div class="md-form">
+                <label for="case_holding">Case holding</label>
+                <input type="text" id="case_holding" name="case_holding" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{{/partial}}
+{{>layout.hbs}}
