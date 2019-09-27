@@ -1,0 +1,20 @@
+{{#partial "content"}}
+    <div>
+            <h2>Input search options</h2>
+            <form action="/caselaw" class="form form-dark" method="POSTa">
+                <div class="md-form">
+                    <label id="case_number" for="case_number">Case Number</label>
+                    <input type="text" id="case_number" name="case_number" class="form-control">
+                </div>
+                <div class="md-form">
+                    <label id="location" for="location">Judge</label>
+                    <select class="form-control" name="location" id="location" required>
+                        {{#each judges}}
+                            <option value="{{judge_name}}">{{judge_name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+        {{/partial}}
