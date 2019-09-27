@@ -98,7 +98,7 @@ public class Sql2oInterestedPartyDao implements InterestedPartyDao{
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
-            con.createQuery(sql)
+            con.createQuery(deleteJoin)
                     .addParameter("party_id", id)
                     .executeUpdate();
         } catch (Sql2oException ex){

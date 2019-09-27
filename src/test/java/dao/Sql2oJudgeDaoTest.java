@@ -37,8 +37,12 @@ public class Sql2oJudgeDaoTest {
 
     @Test
     public void addJudgeToCase() {
+        CaseLaw caseLaw = setupCaselaw();
+        CaseLaw caseLaw1 = setupCaselaw();
         Judge judge = setUpJudge();
-        assertTrue(judgeDao.getAllJudges().contains(judge));
+        judgeDao.addJudgeToCase(judge,caseLaw);
+        judgeDao.addJudgeToCase(judge,caseLaw1);
+        assertTrue(judgeDao.getCaseForJudge(judge.getId()).contains(caseLaw));
     }
 
     @Test

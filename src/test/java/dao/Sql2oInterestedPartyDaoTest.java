@@ -61,13 +61,15 @@ public class Sql2oInterestedPartyDaoTest {
         assertEquals(2,interestedPartyDao.getCaseLawsForInterestedParty(interestedParty.getId()).size());
     }
 
-//    @Test
-//    public void deleteById() {
-//        InterestedParty interestedParty = setUpInterestedParty();
-//        InterestedParty interestedParty1 = setUpInterestedParty();
-//        interestedPartyDao.deleteById(interestedParty.getId());
-//        assertEquals(1,interestedPartyDao.getAllInterestedParties().size());
-//    }
+    @Test
+    public void deleteById() {
+        InterestedParty interestedParty = setUpInterestedParty();
+        InterestedParty interestedParty1 = setUpInterestedParty();
+        interestedPartyDao.deleteById(interestedParty.getId());
+        assertEquals(1,interestedPartyDao.getAllInterestedParties().size());
+    }
+
+
 
     @Test
     public void clearAll() {
