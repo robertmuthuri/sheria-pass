@@ -7,6 +7,10 @@ public  abstract class Party {
     public String type;
     public int id;
 
+    public Party(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

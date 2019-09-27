@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 public class Sql2oCaselawDaoTest {
 
     private Sql2oCaselawDao caselawDao;
+    private Sql2oPetitionerDao petitionerDao;
     private Connection conn;
 
     @Before
@@ -18,6 +19,7 @@ public class Sql2oCaselawDaoTest {
         String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         caselawDao = new  Sql2oCaselawDao(sql2o);
+        petitionerDao = new Sql2oPetitionerDao(sql2o);
         conn = sql2o.open();
     }
     @After
@@ -42,6 +44,9 @@ public class Sql2oCaselawDaoTest {
         caselawDao.add(testCaselaw);
         assertEquals(1, caselawDao.getAll().size());
     }
+    //test successful add of caselaw to party
+//    @Test
+//    public void addCasellawToParty
     @Test
     public void noCaselawsReturnsEmptyList() throws Exception {
         assertEquals(0, caselawDao.getAll().size());
@@ -59,5 +64,17 @@ public class Sql2oCaselawDaoTest {
         caselawDao.add(testCaselaw);
         caselawDao.clearAll();
         assertEquals(0, caselawDao.getAll().size());
+    }
+    @Test
+    public void CaselawReturnsPartiesCorrectly() throws Exception {
+        CaseLaw testCaselaw = setupCaselaw();
+        caselawDao.add(testCaselaw);
+        Petitioner testPetitioner = new Petitioner("Daisy");
+        petitionerDao.add(testPetitioner);
+        Petitioner testPetitioner2 = new Petitioner("Nathan");
+        petitionerDao.add(testPetitioner2);
+        caselawDao.addCaseLawToParty(testCaselaw, testPetitioner);
+        caselawDao.addCaseLawToParty(testCaselaw, testPetitioner2);
+        assertEquals(2, caselawDao.getAllPartiesForACaselaw(testCaselaw.getId()).size());
     }
 }

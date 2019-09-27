@@ -16,7 +16,7 @@ public class Sql2oPetitionerDao implements PetitionerDao {
     }
     @Override
     public void add(Petitioner petitioner) {
-        String sql = "INSERT INTO parties (name,type)    VALUES (:name, :type)";
+        String sql = "INSERT INTO parties (name,type) VALUES (:name, :type)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(petitioner)

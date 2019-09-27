@@ -15,6 +15,7 @@ public interface CaselawDao {
     CaseLaw findById(int id);
 
     List<CaseLaw> getAll();
+    List<Party> getAllPartiesForACaselaw(int case_id);
 
     //update
     //omit for now

@@ -6,8 +6,6 @@ import java.util.*;
 
 import org.sql2o.Sql2o;
 
-import javax.print.DocFlavor;
-
 public class Sql2oCaselawDao implements CaselawDao {
 
     private final Sql2o sql2o;
@@ -64,6 +62,45 @@ public class Sql2oCaselawDao implements CaselawDao {
                     .executeAndFetch(CaseLaw.class);
         }
     }
+    // List all of a party's caselaws
+    @Override
+    public List<Party> getAllPartiesForACaselaw(int case_id) {
+//        ArrayList<Party> parties = new ArrayList<>();
+//        String joinQuery = "SELECT departmentnews_id FROM departments_departmentnews WHERE department_id = :department_id";
+//         String sql = "SELECT * FROM caselaws_parties WHERE case_id = :case_id";
+//        String joinQuery = "SELECT parties.* FROM caselaws JOIN caselaws_parties ON (caselaws.id = caselaws_parties.case_id) JOIN parties ON (caselaws_parties.party_id = parties.id) WHERE caselaws.id = :case_id";
+//        try (Connection con = sql2o.open()) {
+//            return con.createQuery(joinQuery)
+//                    .addParameter("case_id", case_id)
+//                    .executeAndFetch(Party.class);
+//        } catch (Sql2oException ex) {
+//            System.out.println(ex);
+//        }
+//        return parties;
+        ArrayList<Party> parties = new ArrayList<>();
+
+//        String joinQuery = "SELECT departmentnews_id FROM departments_departmentnews WHERE department_id = :department_id";
+        String joinQuery = "SELECT party_id FROM caselaws_parties WHERE case_id = :case_id";
+        try (Connection con = sql2o.open()) {
+            List<Integer> allPartiesIds = con.createQuery(joinQuery)
+                    .addParameter("case_id", case_id)
+                    .executeAndFetch(Integer.class);
+            for (Integer partyId : allPartiesIds) {
+                String caseLawNewsQuery = "SELECT * FROM parties WHERE id = :party_id";
+                parties.add(
+                        con.createQuery(caseLawNewsQuery)
+                                .addParameter("party_id", partyId)
+                                .executeAndFetchFirst(Party.class));
+            }
+        }    catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+        return parties;
+    }
+
+
+    // List all of a judge's caselaws
+
     // delete by id - also deletes in join tables
     @Override
     public void deleteById(int id) {
