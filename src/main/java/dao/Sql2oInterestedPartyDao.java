@@ -35,7 +35,7 @@ public class Sql2oInterestedPartyDao implements InterestedPartyDao{
     }
 
     @Override
-    public void addInterestedParty(InterestedParty interestedParty, CaseLaw caseLaw) {
+    public void addInterestedPartyToCaselaw(InterestedParty interestedParty, CaseLaw caseLaw) {
         String sql ="INSERT INTO caselaws_parties (case_id,party_id) VALUES (:case_id,:party_id)";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
@@ -98,7 +98,7 @@ public class Sql2oInterestedPartyDao implements InterestedPartyDao{
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
-            con.createQuery(sql)
+            con.createQuery(deleteJoin)
                     .addParameter("party_id", id)
                     .executeUpdate();
         } catch (Sql2oException ex){

@@ -17,7 +17,7 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public void add(Judge judge) {
-        String sql = "INSERT INTO judges (name) VALUES (:name)";
+        String sql = "INSERT INTO judges (judge_name,judge_rank) VALUES (:judge_name,:judge_rank)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(judge)
@@ -36,7 +36,7 @@ public class Sql2oJudgeDao implements JudgeDao{
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("case_id", caseLaw.getId())
-                    .addParameter("party_id", judge.getId())
+                    .addParameter("judge_id", judge.getId())
                     .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);
@@ -53,9 +53,10 @@ public class Sql2oJudgeDao implements JudgeDao{
 
     @Override
     public Judge findById(int id) {
-        try(Connection con = sql2o.open()){
-            return (Judge) con.createQuery("SELECT * FROM parties WHERE type=judge")
-                    .executeAndFetch(Judge.class);
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM judges WHERE id=:id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Judge.class);
         }
     }
 
