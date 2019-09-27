@@ -67,9 +67,10 @@ public class  App {
             return gson.toJson(respondentDao.getAllRespondent());//send it back to be displayed
 
         });
-        get("/respondentscase", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/respondentscase/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
             res.type("application/json");
-            return gson.toJson(respondentDao.getAllRespondent());//send it back to be displayed
+            int party_id = Integer.parseInt(req.params("id"));
+            return gson.toJson(respondentDao.getAllCasesForResponded(party_id));//send it back to be displayed
 
         });
 
