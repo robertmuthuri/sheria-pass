@@ -47,7 +47,7 @@ public class Sql2oPetitionerDao implements PetitionerDao {
     @Override
     public List<Petitioner> getAllPetioners() {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM parties WHERE type='petitioner'")
+            return con.createQuery("SELECT * FROM parties")
                     .executeAndFetch(Petitioner.class);
         }
     }

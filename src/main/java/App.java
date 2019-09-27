@@ -94,6 +94,46 @@ public class  App {
             return gson.toJson(respondent);
         });
 
+        post("/caselaw/new", "application/json", (req, res) -> { // here we accept a request in JSON
+            CaseLaw caselaw= gson.fromJson(req.body(), CaseLaw.class);
+            caselawDao.add(caselaw);
+            res.type("application/json");
+            res.status(201);// update the response status code
+            return gson.toJson(caselaw);
+        });
+
+        post("/petitioner/new", "application/json", (req, res) -> { // here we accept a request in JSON
+            Petitioner petitioner= gson.fromJson(req.body(), Petitioner.class);
+            petitionerDao.add(petitioner);
+            res.type("application/json");
+            res.status(201);// update the response status code
+            return gson.toJson(petitioner);
+        });
+        post("/interestedparty/new", "application/json", (req, res) -> { // here we accept a request in JSON
+            InterestedParty interestedparty= gson.fromJson(req.body(), InterestedParty.class);
+            interestespartyDao.add(interestedparty);
+            res.type("application/json");
+            res.status(201);// update the response status code
+            return gson.toJson(interestedparty);
+        });
+
+        post("/law/new", "application/json", (req, res) -> { // here we accept a request in JSON
+            Law law= gson.fromJson(req.body(), Law.class);
+            lawDao.add(law);
+            res.type("application/json");
+            res.status(201);// update the response status code
+            return gson.toJson(law);
+        });
+
+        post("/respondent/new", "application/json", (req, res) -> { // here we accept a request in JSON
+            Respondent respondent= gson.fromJson(req.body(), Respondent.class);
+            respondentDao.add(respondent);
+            res.type("application/json");
+            res.status(201);// update the response status code
+            return gson.toJson(respondent);
+        });
+
+
 
 
 
