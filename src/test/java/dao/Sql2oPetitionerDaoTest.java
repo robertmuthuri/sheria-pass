@@ -73,14 +73,14 @@ public class Sql2oPetitionerDaoTest {
         assertEquals(2,petitionerDao.getCaseLawsForPetitioner(petitioner.getId()).size());
     }
 
-//    @Test
-//    public void deleteById() {
-//        Petitioner petitioner = setUpPetitioner();
-//        Petitioner petitioner1 = setUpPetitioner();
-//        assertEquals(2,petitionerDao.getAllPetioners().size());
-//        petitionerDao.deleteById(petitioner.getId());
-//        assertEquals(1,petitionerDao.getAllPetioners().size());
-//    }
+    @Test
+    public void deleteById() {
+        Petitioner petitioner = setUpPetitioner();
+        Petitioner petitioner1 = setUpPetitioner();
+        assertEquals(2,petitionerDao.getAllPetioners().size());
+        petitionerDao.deleteById(petitioner.getId());
+        assertEquals(1,petitionerDao.getAllPetioners().size());
+    }
 
     @Test
     public void clearAll() {
