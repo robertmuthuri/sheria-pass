@@ -16,6 +16,7 @@ dependencies {
     compile "com.sparkjava:spark-core:2.6.0"
     compile "com.sparkjava:spark-template-handlebars:2.5.5" //we'll need this for later!
     compile 'org.slf4j:slf4j-simple:1.7.21' //to ensure easy to read logging.
+    compile 'com.google.code.gson:gson:2.5'
     //db dependencies
     compile 'org.sql2o:sql2o:1.5.4'
     compile 'org.postgresql:postgresql:9.4-1201-jdbc41'
