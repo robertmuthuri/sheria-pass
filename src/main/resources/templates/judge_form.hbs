@@ -1,0 +1,17 @@
+{{#partial "content"}}
+    <div>
+        <h2>Add a judge</h2>
+        <form action="/judge/new" class="form form-dark" method="POST">
+            <div class="md-form">
+                <label for="judge_name">Judge Name</label>
+                <input type="text" id="judge_name" name="judge_name" class="form-control">
+            </div>
+            <div class="md-form">
+                <label for="judge_rank">Judge Rank</label>
+                <input type="text" id="judge_rank" name="judge_rank" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{{/partial}}
+{{>layout.hbs}}
